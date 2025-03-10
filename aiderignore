@@ -1,13 +1,3 @@
-# Ignore TemplateUpdates and Graph
-Sources/Scorpion.SEO.Review.TemplateUpdates/*
-Sources/Scorpion.SEO.Review.Graph/*
-Sources/Scorpion.SEO.Review.Data.Sql/PublishedProfiles/*
-Sources/Scorpion.SEO.Review/*
-Config/*
-Deployment/*
-Tests/*
-pull_request_template/*
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
