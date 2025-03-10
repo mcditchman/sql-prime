@@ -528,25 +528,25 @@ This document outlines the coding conventions, architecture patterns, and best p
 
 SQLPrime follows a Clean Architecture approach with clearly separated layers:
 
-1. **Core Layer** (`SQLPrime.Core`)
+1. **Core Layer** (`SQLPrime.Engine.Core`)
    - Domain entities
    - Domain interfaces
    - Business rules and logic
    - No dependencies on other project layers or external frameworks
 
-2. **Application Layer** (`SQLPrime.Application`)
+2. **Application Layer** (`SQLPrime.Engine.Application`)
    - Use case implementations
    - Commands and queries (CQRS pattern)
    - Validators
    - Dependencies: Core layer only
 
-3. **Infrastructure Layer** (`SQLPrime.Infrastructure`)
+3. **Infrastructure Layer** (`SQLPrime.Engine.Infrastructure`)
    - Data access implementations (repositories using Dapper)
    - External service integrations (e.g., OpenAI)
    - Database connections
    - Dependencies: Core layer and external packages
 
-4. **API Layer** (`SQLPrime.Api`)
+4. **API Layer** (`SQLPrime.Engine.Api`)
    - Controllers
    - Middleware
    - Request/response models
@@ -715,11 +715,11 @@ public static class InfrastructureServiceRegistration
 
 ```
 SQLPrime/
-├── SQLPrime.Api            # API endpoints and controllers
-├── SQLPrime.Core           # Domain entities and interfaces
-├── SQLPrime.Application    # Business logic and use cases
-├── SQLPrime.Infrastructure # External services and data access
-└── SQLPrime.Tests          # Unit and integration tests
+├── SQLPrime.Engine.Api            # API endpoints and controllers
+├── SQLPrime.Engine.Core           # Domain entities and interfaces
+├── SQLPrime.Engine.Application    # Business logic and use cases
+├── SQLPrime.Engine.Infrastructure # External services and data access
+└── SQLPrime.Engine.Tests          # Unit and integration tests
 ```
 
 ### File Organization
@@ -1314,7 +1314,7 @@ public class ConnectionStringProtector : IConnectionStringProtector
     
     public ConnectionStringProtector(IDataProtectionProvider provider)
     {
-        _protector = provider.CreateProtector("SQLPrime.ConnectionStrings");
+        _protector = provider.CreateProtector("SQLPrime.Engine.ConnectionStrings");
     }
     
     public string Protect(string connectionString)
@@ -1344,7 +1344,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     app.UseHttpsRedirection();
     
     app.UseCors(policy => 
-        policy.WithOrigins("https://app.sqlprime.com")
+        policy.WithOrigins("https://app.SQLPrime.Engine.com")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .WithExposedHeaders("Content-Disposition")
