@@ -398,3 +398,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.aider*
+
+# SQLPrime custom additions
+*.GhostDoc.xml
+*.nupkg
+QueryStore/
+BenchmarkResults/
