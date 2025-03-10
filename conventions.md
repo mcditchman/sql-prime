@@ -127,7 +127,10 @@ public static class SqlExtensions
         
         return countSql;
     }
-}### Stored Procedure Example
+}
+```
+
+### Stored Procedure Example
 
 ```sql
 CREATE PROCEDURE sp_GetQueryExecutionHistory
@@ -256,7 +259,9 @@ public class QueryExecutionRepository : IQueryExecutionRepository
         
         return execution.Id;
     }
-}### Complex Query Example with Dynamic Parameters
+}
+```
+### Complex Query Example with Dynamic Parameters
 
 ```csharp
 public class QuerySearchRepository : IQuerySearchRepository
@@ -376,7 +381,9 @@ public class QuerySearchRepository : IQuerySearchRepository
         
         return (results.ToList(), totalCount);
     }
-}### Write Repository Implementation Example with Dapper
+}
+```
+### Write Repository Implementation Example with Dapper
 
 ```csharp
 public class ConnectionWriteRepository : IConnectionWriteRepository
@@ -491,7 +498,10 @@ public class ConnectionWriteRepository : IConnectionWriteRepository
             ModifiedBy = Guid.Empty // Should be the current user ID in real implementation
         });
     }
-}# SQLPrime Coding Conventions and Best Practices
+}
+```
+
+# SQLPrime Coding Conventions and Best Practices
 
 This document outlines the coding conventions, architecture patterns, and best practices to be followed when developing the SQLPrime backend service. These guidelines ensure consistency, maintainability, and adherence to industry standards throughout the codebase.
 
