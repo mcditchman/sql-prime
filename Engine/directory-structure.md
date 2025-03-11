@@ -67,7 +67,6 @@ SQLPrime.Engine.Infrastructure/
 ├── Data/                  # Data access
 │   ├── ConnectionFactories/ # Database connection factories
 │   ├── Context/           # EF Core DbContext (if used)
-│   ├── Migrations/        # Database migrations
 │   ├── Repositories/      # Repository implementations
 │   │   ├── Connections/   # Connection repositories
 │   │   ├── Queries/       # Query repositories
@@ -154,8 +153,6 @@ SQLPrime.Database/
 │   └── Recommendations/   # Recommendation-related procedures
 ├── Functions/             # SQL functions
 ├── Migrations/            # Versioned migration scripts
-│   ├── V1.0.0/            # Initial schema
-│   └── V1.1.0/            # Schema updates
 └── Scripts/               # Utility scripts
     ├── Post-Deployment/   # Scripts to run after deployment
     └── Pre-Deployment/    # Scripts to run before deployment
