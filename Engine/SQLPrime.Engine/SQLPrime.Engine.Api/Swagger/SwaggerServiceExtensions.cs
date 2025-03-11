@@ -35,6 +35,8 @@ public static class SwaggerServiceExtensions
                 options.SwaggerEndpoint(
                     $"/swagger/{description.GroupName}/swagger.json",
                     $"SQLPrime API {description.GroupName.ToUpperInvariant()}");
+
+                options.RoutePrefix = string.Empty;
             }
 
             options.DisplayRequestDuration();

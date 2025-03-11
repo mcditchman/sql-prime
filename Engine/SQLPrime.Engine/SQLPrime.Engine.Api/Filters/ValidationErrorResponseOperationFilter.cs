@@ -15,7 +15,7 @@ public class ValidationErrorResponseOperationFilter : IOperationFilter
                 Description = "Validation Error",
                 Content = new Dictionary<string, OpenApiMediaType>
                 {
-                    ["application/json"] = new OpenApiMediaType
+                    ["application/json"] = new()
                     {
                         Schema = context.SchemaGenerator.GenerateSchema(
                             typeof(ValidationProblemDetails), 
