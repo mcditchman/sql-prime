@@ -551,6 +551,9 @@ SQLPrime follows a Clean Architecture approach with clearly separated layers:
    - Middleware
    - Request/response models
    - Dependencies: Application and Infrastructure layers
+5. **Database** (`SQLPrime.Engine.Database`)
+   - SSDT Project
+   - SQL Schema files
 
 ### CQRS Pattern with Balanced Approach
 
@@ -707,19 +710,6 @@ public static class InfrastructureServiceRegistration
         return services;
     }
 }
-```
-
-## Project Structure
-
-### Solution Organization
-
-```
-SQLPrime/
-├── SQLPrime.Engine.Api            # API endpoints and controllers
-├── SQLPrime.Engine.Core           # Domain entities and interfaces
-├── SQLPrime.Engine.Application    # Business logic and use cases
-├── SQLPrime.Engine.Infrastructure # External services and data access
-└── SQLPrime.Engine.Tests          # Unit and integration tests
 ```
 
 ### File Organization

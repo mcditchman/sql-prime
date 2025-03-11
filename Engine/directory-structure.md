@@ -11,6 +11,7 @@ SQLPrime/
 ├── SQLPrime.Engine.Application    # Business logic and use cases
 ├── SQLPrime.Engine.Infrastructure # External services and data access
 └── SQLPrime.Engine.Tests          # Unit and integration tests
+└── SQLPrime.Engine.Database       # SSDT Project for SQL Schema files
 ```
 
 ## SQLPrime.Engine.Core
@@ -136,6 +137,28 @@ SQLPrime.Engine.Tests/
 │   ├── Builders/          # Test data builders
 │   └── Mocks/             # Common mocks
 └── TestUtilities/         # Test helper classes
+```
+
+## SQLPrime.Engine.Database
+```
+SQLPrime.Database/
+├── Schema/                # Table definitions
+│   ├── dbo/               # Default schema
+│   │   ├── Tables/        # Table creation scripts
+│   │   ├── Views/         # View creation scripts
+│   │   └── Types/         # User-defined types
+├── StoredProcedures/      # Organized by feature
+│   ├── Connections/       # Connection-related procedures
+│   ├── Queries/           # Query-related procedures
+│   ├── Analysis/          # Analysis-related procedures
+│   └── Recommendations/   # Recommendation-related procedures
+├── Functions/             # SQL functions
+├── Migrations/            # Versioned migration scripts
+│   ├── V1.0.0/            # Initial schema
+│   └── V1.1.0/            # Schema updates
+└── Scripts/               # Utility scripts
+    ├── Post-Deployment/   # Scripts to run after deployment
+    └── Pre-Deployment/    # Scripts to run before deployment
 ```
 
 The structure above follows clean architecture principles with a clear separation of concerns between layers. It is organized to support the CQRS pattern with feature-based organization within each layer, which aligns with the project roadmap stages and allows for incremental implementation of features.
