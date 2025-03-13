@@ -8,6 +8,17 @@ export interface User {
   role: 'admin' | 'user'
 }
 
+export interface SignInCredentials {
+  email: string
+  password: string
+}
+
+export interface SignUpCredentials {
+  name: string
+  email: string
+  password: string
+}
+
 export const useAuthStore = defineStore('auth', () => {
   // State
   const user = ref<User | null>(null)
@@ -33,6 +44,99 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
   
+  async function signIn(credentials: SignInCredentials) {
+    loading.value = true
+    error.value = null
+    
+    try {
+      // This would be replaced with an actual API call
+      console.log('Signing in with:', credentials)
+      
+      // Mock successful authentication
+      const mockUser = {
+        id: 'user-' + Math.random().toString(36).substr(2, 9),
+        name: 'Test User',
+        email: credentials.email,
+        role: 'user' as const
+      }
+      const mockToken = 'mock-token-' + Math.random().toString(36).substr(2, 16)
+      
+      // Set user and token
+      setUser(mockUser)
+      setToken(mockToken)
+      
+      return true
+    } catch (err) {
+      console.error('Authentication error:', err)
+      error.value = 'Authentication failed. Please try again.'
+      return false
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  async function signUp(credentials: SignUpCredentials) {
+    loading.value = true
+    error.value = null
+    
+    try {
+      // This would be replaced with an actual API call
+      console.log('Signing up with:', credentials)
+      
+      // Mock successful registration
+      const mockUser = {
+        id: 'user-' + Math.random().toString(36).substr(2, 9),
+        name: credentials.name,
+        email: credentials.email,
+        role: 'user' as const
+      }
+      const mockToken = 'mock-token-' + Math.random().toString(36).substr(2, 16)
+      
+      // Set user and token
+      setUser(mockUser)
+      setToken(mockToken)
+      
+      return true
+    } catch (err) {
+      console.error('Registration error:', err)
+      error.value = 'Registration failed. Please try again.'
+      return false
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  async function signInWithGoogle() {
+    loading.value = true
+    error.value = null
+    
+    try {
+      // This would be replaced with actual Google OAuth implementation
+      console.log('Signing in with Google')
+      
+      // Mock successful Google authentication
+      const mockUser = {
+        id: 'google-user-' + Math.random().toString(36).substr(2, 9),
+        name: 'Google User',
+        email: 'google.user@example.com',
+        role: 'user' as const
+      }
+      const mockToken = 'google-token-' + Math.random().toString(36).substr(2, 16)
+      
+      // Set user and token
+      setUser(mockUser)
+      setToken(mockToken)
+      
+      return true
+    } catch (err) {
+      console.error('Google authentication error:', err)
+      error.value = 'Google authentication failed. Please try again.'
+      return false
+    } finally {
+      loading.value = false
+    }
+  }
+  
   function logout() {
     user.value = null
     setToken(null)
@@ -45,6 +149,16 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = storedToken
       // Here you would typically make an API call to get the user data
       // based on the token
+      
+      // For demo purposes, set a mock user
+      if (!user.value) {
+        user.value = {
+          id: 'stored-user-id',
+          name: 'Stored User',
+          email: 'stored.user@example.com',
+          role: 'user'
+        }
+      }
     }
   }
   
@@ -62,6 +176,9 @@ export const useAuthStore = defineStore('auth', () => {
     // Actions
     setUser,
     setToken,
+    signIn,
+    signUp,
+    signInWithGoogle,
     logout,
     init
   }
