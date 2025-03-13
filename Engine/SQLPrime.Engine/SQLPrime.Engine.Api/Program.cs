@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using SQLPrime.Engine.Api.Configuration;
+using SQLPrime.Engine.Api.Extensions;
 using SQLPrime.Engine.Api.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);

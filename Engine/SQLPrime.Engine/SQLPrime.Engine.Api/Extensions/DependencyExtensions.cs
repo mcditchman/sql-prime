@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
+using SQLPrime.Engine.Api.Configuration;
 
-namespace SQLPrime.Engine.Api.Configuration;
+namespace SQLPrime.Engine.Api.Extensions;
 
 public static class DependencyExtensions
 {
