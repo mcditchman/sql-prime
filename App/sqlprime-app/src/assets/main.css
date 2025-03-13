@@ -1,3 +1,4 @@
+@import './primevue-theme.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,20 +9,22 @@
   min-height: 100vh;
   margin: 0 auto;
   font-weight: normal;
+  font-family: var(--font-family);
+  color: var(--text-color);
 }
 
 /* SQLPrime specific custom variables */
 :root {
   /* SQLPrime specific colors */
-  --sqlprime-highlight: #4ADE80;
-  --sqlprime-lowlight: #F87171;
-  --sqlprime-neutral: #94A3B8;
+  --sqlprime-highlight: var(--success);
+  --sqlprime-lowlight: var(--error);
+  --sqlprime-neutral: var(--secondary-dark);
   
   /* Execution plan visualization colors */
-  --plan-scan: #EF4444;
+  --plan-scan: var(--error);
   --plan-seek: #22C55E;
-  --plan-join: #3B82F6;
-  --plan-sort: #F59E0B;
+  --plan-join: var(--info);
+  --plan-sort: var(--warning);
   --plan-aggregate: #A855F7;
   
   /* SQL Editor specific */
@@ -33,8 +36,8 @@
 
 /* Dark mode specific variables */
 [data-theme="dark"] {
-  --editor-background: #1E1E1E;
-  --editor-foreground: #D4D4D4;
+  --editor-background: var(--dm-background);
+  --editor-foreground: var(--dm-text-primary);
   --editor-line-highlight: rgba(255, 255, 255, 0.05);
   --editor-selection: rgba(147, 197, 253, 0.3);
 }
