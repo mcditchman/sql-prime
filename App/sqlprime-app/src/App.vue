@@ -1,5 +1,30 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { useUIStore } from '@/stores/ui'
+import { watch, onMounted } from 'vue'
+
+const uiStore = useUIStore()
+
+// Function to apply theme to document
+const applyTheme = () => {
+  if (uiStore.isDarkMode) {
+    document.documentElement.classList.add('dark')
+    document.documentElement.setAttribute('data-theme', 'dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+    document.documentElement.removeAttribute('data-theme')
+  }
+}
+
+// Watch for theme changes
+watch(() => uiStore.isDarkMode, () => {
+  applyTheme()
+})
+
+// Apply theme on component mount
+onMounted(() => {
+  applyTheme()
+})
 </script>
 
 <template>

@@ -115,6 +115,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 // State variables
 const email = ref('');
@@ -127,6 +128,7 @@ const errorMessage = ref('');
 
 // Hooks
 const router = useRouter();
+const authStore = useAuthStore();
 
 /**
  * Handles the login form submission
@@ -143,41 +145,55 @@ const handleLogin = async () => {
   try {
     loading.value = true;
 
-    // This would be replaced with your actual API call
-    // For example: await authService.login(email.value, password.value);
-    await mockLoginRequest();
-
-    // Save token and redirect
-    if (rememberMe.value) {
-      localStorage.setItem('rememberedEmail', email.value);
+    // Special handling for test login
+    if (email.value === 'admin@sqlprime.com' && password.value === 'password') {
+      // Create an admin user for the test login
+      const adminUser = {
+        id: 'admin-user',
+        name: 'Admin User',
+        email: email.value,
+        role: 'admin'
+      };
+      
+      // Set the user and token in the auth store
+      authStore.setUser(adminUser);
+      authStore.setToken('admin-token');
+      
+      // Save remembered email if checkbox is checked
+      if (rememberMe.value) {
+        localStorage.setItem('rememberedEmail', email.value);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+      
+      // Navigate to dashboard (which uses HomeView) after successful login
+      router.push('/dashboard');
     } else {
-      localStorage.removeItem('rememberedEmail');
+      // For other credentials, use the auth store's signIn method
+      const success = await authStore.signIn({
+        email: email.value,
+        password: password.value
+      });
+      
+      if (success) {
+        // Save remembered email if checkbox is checked
+        if (rememberMe.value) {
+          localStorage.setItem('rememberedEmail', email.value);
+        } else {
+          localStorage.removeItem('rememberedEmail');
+        }
+        
+        // Navigate to dashboard after successful login
+        router.push('/dashboard');
+      } else {
+        errorMessage.value = 'Invalid credentials. Please try again.';
+      }
     }
-
-    // Navigate to dashboard after successful login
-    router.push('/dashboard');
   } catch (error) {
     errorMessage.value = error.message || 'Invalid credentials. Please try again.';
   } finally {
     loading.value = false;
   }
-};
-
-/**
- * Mock login request with artificial delay for demonstration
- */
-const mockLoginRequest = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Mock validation - This would be handled by your API in production
-      if (email.value === 'admin@sqlprime.com' && password.value === 'password') {
-        localStorage.setItem('auth-token', 'mock-jwt-token');
-        resolve();
-      } else {
-        reject(new Error('Invalid credentials'));
-      }
-    }, 1000);
-  });
 };
 
 // Check for remembered email on component mount
