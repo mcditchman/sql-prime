@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import Button from 'primevue/button'
-import Card from 'primevue/card'
-import Menubar from 'primevue/menubar'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -12,100 +9,35 @@ const handleLogout = () => {
   authStore.logout()
   router.push('/')
 }
-
-const menubarItems = [
-  {
-    label: 'SQL Prime Engine',
-    class: 'text-xl font-bold text-primary'
-  }
-]
 </script>
 
 <template>
-  <div class="flex flex-column h-screen">
-    <Menubar :model="menubarItems" :pt="{ root: { class: 'border-noround mb-3' } }">
-      <template #end>
-        <div class="flex align-items-center gap-3">
-          <span v-if="authStore.user">{{ authStore.user.name }}</span>
-          <Button label="Logout" icon="pi pi-sign-out" text severity="info" @click="handleLogout" />
+  <div class="flex flex-col h-screen">
+    <nav class="bg-white dark:bg-gray-900 shadow-md mb-4 px-4 py-2">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="text-xl font-bold text-blue-600 dark:text-blue-400">
+          SQL Prime Engine
         </div>
-      </template>
-    </Menubar>
+        <div class="flex items-center gap-3">
+          <span v-if="authStore.user" class="text-gray-700 dark:text-gray-300">{{ authStore.user.name }}</span>
+          <button
+            @click="handleLogout"
+            class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
     
-    <div class="flex-1 p-4">
-      <Card class="max-w-6 m-auto">
-        <template #title>
-          <h1 class="text-primary text-3xl m-0 mb-3">Welcome to SQL Prime Engine</h1>
-        </template>
-        <template #content>
-          <p>Your dashboard is ready. This is a placeholder for the actual dashboard content.</p>
-        </template>
-      </Card>
+    <div class="flex-1 p-6">
+      <div class="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h1 class="text-blue-600 dark:text-blue-400 text-3xl font-bold mb-4">Welcome to SQL Prime Engine</h1>
+        <p class="text-gray-700 dark:text-gray-300">Your dashboard is ready. This is a placeholder for the actual dashboard content.</p>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* PrimeVue will handle most styling, we just need minimal custom styles */
-:deep(.p-menubar) {
-  background-color: var(--surface-card);
-  border-bottom: 1px solid var(--surface-border);
-}
-
-:deep(.p-card) {
-  background-color: var(--surface-card);
-  box-shadow: var(--card-shadow);
-}
-
-.text-primary {
-  color: var(--primary-color);
-}
-
-.text-3xl {
-  font-size: 1.75rem;
-}
-
-.max-w-6 {
-  max-width: 800px;
-}
-
-.h-screen {
-  height: 100vh;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.gap-3 {
-  gap: 1rem;
-}
-
-.p-4 {
-  padding: 1.5rem;
-}
-
-.m-auto {
-  margin: 0 auto;
-}
-
-.m-0 {
-  margin: 0;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-</style>
