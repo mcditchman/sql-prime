@@ -1,0 +1,37 @@
+# .github/workflows/sql-deploy.yml
+name: Build and Deploy DACPAC to Azure SQL
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Engine/SQLPrime.Engine/SQLPrime.Engine.Database/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.1.1
+    
+    - name: Restore NuGet packages
+      run: nuget restore Engine/SQLPrime.Engine/SQLPrime.Engine.sln
+    
+    - name: Build DACPAC
+      run: msbuild Engine/SQLPrime.Engine/SQLPrime.Engine.Database/SQLPrime.Engine.Database.sqlproj /p:Configuration=Release
+    
+    - name: Deploy to Azure SQL
+      uses: azure/sql-action@v2.3
+      with:
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+        path: './Engine/SQLPrime.Engine/SQLPrime.Engine.Database/bin/Release/SQLPrime.Engine.Database.dacpac'
+        action: 'publish'
+        arguments: '/p:BlockOnPossibleDataLoss=false /p:DropObjectsNotInSource=true'
