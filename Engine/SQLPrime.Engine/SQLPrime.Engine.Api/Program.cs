@@ -1,17 +1,17 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using SQLPrime.Engine.Api.Configuration;
 using SQLPrime.Engine.Api.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-
-// Add API versioning
+// Add configuration and dependencies
 builder.Services
-    .AddSwaggerDocumentation() 
+    .AddAppConfiguration(builder.Configuration)
+    .AddControllers()
+    .Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerDocumentation()
     .AddApiVersioning(options =>
     {
         options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -25,9 +25,10 @@ builder.Services
 
 var app = builder.Build();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+var appSettings = app.Services.GetRequiredService<AppSettings>();
 
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
+// Configure middleware using AppSettings
+if (appSettings.Swagger.Enable)
 {
     app.UseSwaggerDocumentation(apiVersionDescriptionProvider);
 }

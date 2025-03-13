@@ -405,3 +405,5 @@ FodyWeavers.xsd
 *.nupkg
 QueryStore/
 BenchmarkResults/
+# Solution-level config
+/config.json
