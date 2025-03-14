@@ -1,16 +1,16 @@
 # SQL Query Optimizer - Frontend Requirements Document
 
 ## Project Overview
-The SQL Query Optimizer frontend is a Vue.js web application that provides an intuitive interface for developers to analyze and optimize their SQL queries. The frontend communicates with the backend API to process queries, visualize execution plans, and display optimization recommendations.
+The SQL Query Optimizer frontend is a React web application that provides an intuitive interface for developers to analyze and optimize their SQL queries. The frontend communicates with the backend API to process queries, visualize execution plans, and display optimization recommendations.
 
 ## Required Technologies
 
 ### Core Technologies
-- **Vue.js 3**: Frontend framework
+- **React**: Frontend library
+- **Next.js**: React framework for server-side rendering and static site generation
 - **TypeScript**: For type safety and improved developer experience
-- **Vite**: Build tool and development server
-- **Pinia**: State management
-- **Vue Router**: Client-side routing
+- **Redux Toolkit** or **React Query**: State management
+- **Next.js API Routes**: Client-side routing
 - **Axios**: HTTP client for API communication
 
 ### UI Components
@@ -18,12 +18,13 @@ The SQL Query Optimizer frontend is a Vue.js web application that provides an in
 - **Monaco Editor**: Code editor for SQL input (same editor used in VS Code)
 - **D3.js**: For visualization of execution plans
 - **Chart.js**: For performance metrics visualization
-- **PrimeVue**: UI component library
+- **Material UI** or **Chakra UI**: UI component library
 
 ### Testing Tools
-- **Vitest**: Unit testing framework
+- **Jest**: Unit testing framework
+- **React Testing Library**: Component testing
 - **Cypress**: End-to-end testing
-- **Vue Test Utils**: Component testing utilities
+- **MSW (Mock Service Worker)**: API mocking
 
 ### Development Tools
 - **ESLint**: Code linting
@@ -39,40 +40,37 @@ The SQL Query Optimizer frontend is a Vue.js web application that provides an in
 
 2. **Project Initialization**:
    ```bash
-   # Create new Vue 3 project with Vite
-   npm init vue@latest
+   # Create new Next.js project with TypeScript
+   npx create-next-app@latest sql-query-optimizer-frontend --typescript
 
-   # Select the following options:
-   # ✓ Project name: sql-query-optimizer-frontend
-   # ✓ Add TypeScript: Yes
-   # ✓ Add JSX Support: No
-   # ✓ Add Vue Router for Single Page Application development: Yes
-   # ✓ Add Pinia for state management: Yes
-   # ✓ Add Vitest for Unit Testing: Yes
-   # ✓ Add Cypress for End-to-End testing: Yes
-   # ✓ Add ESLint for code quality: Yes
-   # ✓ Add Prettier for code formatting: Yes
-
+   # Navigate to the project directory
    cd sql-query-optimizer-frontend
+
+   # Install additional dependencies
    npm install
    ```
 
 3. **Additional Dependencies Installation**:
    ```bash
    # Install UI libraries
-   npm install tailwindcss postcss autoprefixer primevue primeicons
+   npm install tailwindcss postcss autoprefixer @chakra-ui/react @emotion/react @emotion/styled framer-motion
 
    # Install visualization libraries
-   npm install d3 chart.js
+   npm install d3 chart.js react-chartjs-2
 
    # Install Monaco Editor
-   npm install monaco-editor @monaco-editor/loader
+   npm install monaco-editor @monaco-editor/react
 
    # Install HTTP client
    npm install axios
 
+   # Install state management
+   npm install @reduxjs/toolkit react-redux
+   # or
+   npm install @tanstack/react-query
+
    # Install validator libraries
-   npm install vee-validate zod @vee-validate/zod
+   npm install zod react-hook-form @hookform/resolvers
 
    # Install utilities
    npm install date-fns lodash
@@ -85,9 +83,9 @@ The SQL Query Optimizer frontend is a Vue.js web application that provides an in
    Then configure `tailwind.config.js` and add Tailwind directives to your CSS.
 
 5. **Environment Configuration**:
-   Create `.env`, `.env.development`, and `.env.production` files for environment variables.
+   Create `.env.local`, `.env.development`, and `.env.production` files for environment variables.
    ```
-   VITE_API_BASE_URL=http://localhost:5000/api
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
    ```
 
 ## Functional Requirements
@@ -208,29 +206,33 @@ The SQL Query Optimizer frontend is a Vue.js web application that provides an in
 ### 1. Component Structure
 ```
 /src
-  /assets
-  /components
-    /common
-    /dashboard
-    /editor
-    /execution-plan
-    /optimization
-    /settings
-  /composables
-  /pages
-  /router
-  /stores
-  /services
-    /api
-    /auth
-    /query
-  /types
-  /utils
+  /app                 # Next.js app directory
+    /api               # API routes
+    /auth              # Authentication pages
+    /dashboard         # Dashboard page
+    /connections       # Connection management
+    /queries           # Query pages
+    /settings          # Settings pages
+    /layout.tsx        # Root layout
+    /page.tsx          # Home page
+  /components          # Shared components
+    /common            # Generic components
+    /dashboard         # Dashboard components
+    /editor            # Query editor components
+    /execution-plan    # Visualization components
+    /optimization      # Recommendation components
+    /ui                # UI components
+  /hooks               # Custom React hooks
+  /lib                 # Utility functions
+  /services            # API services
+  /store               # Redux store (if using Redux)
+  /types               # TypeScript types
+  /styles              # Global styles
 ```
 
 ### 2. State Management
-- Use Pinia for global state
-- Define stores for:
+- Use Redux Toolkit or React Query for global state
+- Define stores/queries for:
   - Auth store (user authentication state)
   - Connection store (database connections)
   - Query store (current query, history)
@@ -243,26 +245,28 @@ The SQL Query Optimizer frontend is a Vue.js web application that provides an in
 - Caching strategy for frequent requests
 
 ### 4. Routing Strategy
-- Authentication guards
-- Lazy-loaded routes
-- Route metadata for permissions
+- Utilize Next.js App Router
+- Authentication middleware
+- Route protection for authenticated pages
+- Metadata for SEO and OpenGraph
 
 ## Development Guidelines
 
 ### 1. Code Style
-- Follow Vue.js Style Guide (Priority A & B rules)
+- Follow React/Next.js best practices
 - Use TypeScript interfaces for all data structures
 - Document complex functions and components
 
 ### 2. Component Design
-- Prefer composition API over options API
+- Create functional components with hooks
+- Use composition for component reuse
 - Create single-responsibility components
-- Use props validation
+- Use TypeScript for prop validation
 - Document component APIs with JSDoc
 
 ### 3. Testing Requirements
-- Unit tests for all stores and services
-- Component tests for complex components
+- Unit tests for all utilities and hooks
+- Component tests with React Testing Library
 - E2E tests for critical user flows
 - Minimum 70% code coverage
 
