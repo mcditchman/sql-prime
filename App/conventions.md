@@ -333,30 +333,6 @@ import Image from 'next/image';
 />
 ```
 
-## Accessibility
-
-### Accessibility Standards
-
-- All components must meet WCAG 2.1 AA standards
-- Use semantic HTML elements
-- Include proper ARIA attributes when needed
-- Ensure keyboard navigation works for all interactive elements
-- Support screen readers by providing appropriate labels and descriptions
-
-```tsx
-// Accessible dialog component
-<dialog 
-  aria-labelledby="dialog-title"
-  aria-describedby="dialog-description"
-  open={isOpen}
->
-  <h2 id="dialog-title">Confirmation</h2>
-  <p id="dialog-description">Are you sure you want to delete this item?</p>
-  <button onClick={onClose}>Cancel</button>
-  <button onClick={onConfirm}>Confirm</button>
-</dialog>
-```
-
 ## Code Quality Tools
 
 - ESLint: Use project-specific ESLint configuration
