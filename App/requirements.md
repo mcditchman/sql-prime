@@ -18,7 +18,7 @@ The SQL Query Optimizer frontend is a React web application that provides an int
 - **Monaco Editor**: Code editor for SQL input (same editor used in VS Code)
 - **D3.js**: For visualization of execution plans
 - **Chart.js**: For performance metrics visualization
-- **Material UI** or **Chakra UI**: UI component library
+- **DaisyUI**: UI component library
 
 ### Testing Tools
 - **Jest**: Unit testing framework
